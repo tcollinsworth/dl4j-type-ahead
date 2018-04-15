@@ -89,7 +89,7 @@ public class Service {
 		Vertx vertx = Vertx.vertx();
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
-		router.route(HttpMethod.POST, "/lang-inference").blockingHandler(routingContext -> new LangRequestHandler(routingContext, this));
+		router.route(HttpMethod.POST, "/lang-inference").blockingHandler(routingContext -> new TypeAheadRequestHandler(routingContext, this));
 		router.route(HttpMethod.POST, "/model-admin").blockingHandler(routingContext -> new ModelAdminRequestHandler(routingContext, this));
 		router.route("/*").handler(StaticHandler.create().setCacheEntryTimeout(1));
 

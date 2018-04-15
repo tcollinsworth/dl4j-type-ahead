@@ -10,9 +10,9 @@ import com.daisyworks.demo.model.Inferrer.Output;
  * @author troy
  *
  */
-public class LangRequestHandler extends RequestHandler {
+public class TypeAheadRequestHandler extends RequestHandler {
 
-	public LangRequestHandler(RoutingContext rc, Service service) {
+	public TypeAheadRequestHandler(RoutingContext rc, Service service) {
 		super(rc, service);
 	}
 
