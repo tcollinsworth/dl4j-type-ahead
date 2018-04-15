@@ -1,4 +1,4 @@
-package com.daisyworks.demo.language;
+package com.daisyworks.demo.examples;
 
 import java.util.List;
 import java.util.Set;

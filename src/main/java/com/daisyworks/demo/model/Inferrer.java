@@ -10,7 +10,6 @@ import org.nd4j.linalg.indexing.INDArrayIndex;
 import org.nd4j.linalg.indexing.NDArrayIndex;
 
 import com.daisyworks.demo.Service;
-import com.daisyworks.language.TokenizeSentenceIntoWords;
 
 /**
  * @author troy
@@ -19,17 +18,16 @@ import com.daisyworks.language.TokenizeSentenceIntoWords;
 public class Inferrer {
 	private final Service service;
 	private final RecurrentNeuralNet rnn;
-	private final Map<Character, Double> charMap;
+	private final Map<Character, Integer> charMap;
 
-	public Inferrer(RecurrentNeuralNet rnn, Map<Character, Double> charMap, Service service) {
+	public Inferrer(RecurrentNeuralNet rnn, Map<Character, Integer> charMap, Service service) {
 		this.service = service;
 		this.rnn = rnn;
 		this.charMap = charMap;
 	}
 
 	public Output infer(String rawExample) {
-		// pre-process remove numbers and punctuation, toLowerCase, trim
-		List<String> words = TokenizeSentenceIntoWords.tokenize(rawExample);
+		List<String> words = service.swizzler.getTransformedInput(rawExample);
 
 		final StringBuilder sb = new StringBuilder();
 		String[] delimiter = { "" };
@@ -40,20 +38,22 @@ public class Inferrer {
 
 		String example = sb.toString().trim().toLowerCase();
 
+		// 1-Hot vector
+
 		// encode/scale, remove untrained characters,
-		List<Double> charsScaledEncoded = new ArrayList<>();
+		List<Integer> charsEncoded = new ArrayList<>();
 		example.chars().forEachOrdered((c) -> {
-			Double charScaledEncoding = charMap.get((char) c);
-			if (charScaledEncoding != null) {
-				charsScaledEncoded.add(charScaledEncoding);
+			Integer charEncoding = charMap.get((char) c);
+			if (charEncoding != null) {
+				charsEncoded.add(charEncoding);
 			}
 		});
 
 		// vectorize inputs, create input mask
 		// input Dimensions [miniBatchSize,inputSize,inputTimeSeriesLength]
-		INDArray input = Nd4j.zeros(new int[] { 1, 1, charsScaledEncoded.size() }, 'f');
-		for (int i = 0; i < charsScaledEncoded.size(); i++) {
-			input.putScalar(new int[] { 0, 0, i }, charsScaledEncoded.get(i));
+		INDArray input = Nd4j.zeros(new int[] { 1, service.swizzler.getInputCharCnt(), charsEncoded.size() }, 'f');
+		for (int i = 0; i < charsEncoded.size(); i++) {
+			input.putScalar(new int[] { 0, charsEncoded.get(i), i }, 1.0f);
 		}
 
 		// System.out.println("infer inputs: " + inputs.toString());
@@ -72,7 +72,7 @@ public class Inferrer {
 		// System.out.println(timeNs);
 		float timeMs = ((float) timeNs) / 1000000;
 
-		return getOutput(outputs, charsScaledEncoded.size(), timeMs);
+		return getOutput(outputs, charsEncoded.size(), timeMs);
 	}
 
 	private Output getOutput(INDArray outputs, int inputTimeSeriesLength, float timeMs) {
@@ -84,8 +84,8 @@ public class Inferrer {
 		int classificationIdx = -1;
 		double maxProbability = 0.0;
 		List<String> lastProbabilities = new ArrayList<>();
-		for (int i = 0; i < service.getClassifications().length; i++) {
-			lastProbabilities.add(service.getClassifications()[i] + ":" + lastClassificationProbabilities.getFloat(i));
+		for (int i = 0; i < service.getOutputChars().length; i++) {
+			lastProbabilities.add(service.getOutputChars()[i] + ":" + lastClassificationProbabilities.getFloat(i));
 			if (lastClassificationProbabilities.getDouble(i) > maxProbability) {
 				maxProbability = lastClassificationProbabilities.getDouble(i);
 				classificationIdx = i;

@@ -10,7 +10,8 @@ import java.io.IOException;
 
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
-import com.daisyworks.demo.language.DataSwizzler;
+import com.daisyworks.demo.examples.DataSwizzler;
+import com.daisyworks.demo.examples.ExampleCharSeqEncodedVectorDataSetIterator;
 import com.daisyworks.demo.model.Evaluator;
 import com.daisyworks.demo.model.Inferrer;
 import com.daisyworks.demo.model.RecurrentNeuralNet;
@@ -33,11 +34,13 @@ public class Service {
 	private final double regularizationL2 = 0.00001;
 
 	public int inputFeatureCnt; // characters
-	public int outputCnt; // classifications
-	public String[] classifications;
+	public int outputCharCnt; // output characters
+	public Character[] outputChars;
 
 	// The char length of longest example for truncating/padding
 	public int maxExampleLength;
+
+	public DataSwizzler swizzler;
 
 	public DataSetIterator trainDataSetIterator;
 	public DataSetIterator validationDataSetIterator;
@@ -61,21 +64,21 @@ public class Service {
 		// for development, also requires staticHandler.setCacheEntryTimeout(1) and browser cache disable
 		System.setProperty("vertx.disableFileCaching", "true");
 
-		DataSwizzler swizzler = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
+		swizzler = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
 		swizzler.loadData();
 
-		outputCnt = swizzler.getClassificationSet().size();
-		classifications = swizzler.getClassificationSet().toArray(new String[0]);
+		outputCharCnt = swizzler.getOutputSet().size();
+		outputChars = swizzler.getOutputSet().toArray(new Character[0]);
 
-		trainDataSetIterator = new ExampleCharSeqAsDoubleEncodedVectorDataSetIterator( //
+		trainDataSetIterator = new ExampleCharSeqEncodedVectorDataSetIterator( //
 				"train", //
 				swizzler.getMaxCharLength(), //
 				swizzler.getDataSet("train"), //
-				swizzler.getClassificationSet(), //
+				swizzler.getOutputSet(), //
 				miniBatchSize, //
 				swizzler.getCharMap());
 
-		rnn = new RecurrentNeuralNet(iterations, learningRate, 1, outputCnt, seed, regularizationL2);
+		rnn = new RecurrentNeuralNet(iterations, learningRate, 1, outputCharCnt, seed, regularizationL2);
 
 		inferrer = new Inferrer(rnn, swizzler.getCharMap(), this);
 		trainer = new Trainer(rnn);
@@ -104,7 +107,7 @@ public class Service {
 		trainer.train(trainDataSetIterator, validationDataSetIterator, evaluator);
 	}
 
-	public String[] getClassifications() {
-		return classifications;
+	public Character[] getOutputChars() {
+		return outputChars;
 	}
 }

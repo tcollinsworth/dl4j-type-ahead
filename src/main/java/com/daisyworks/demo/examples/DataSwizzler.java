@@ -1,4 +1,4 @@
-package com.daisyworks.demo.language;
+package com.daisyworks.demo.examples;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -53,7 +53,10 @@ public class DataSwizzler {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		DataSwizzler ds = new DataSwizzler(3, 1, 3);
+		int min1gramWordLength = 3;
+		int minNgramWords = 1;
+		int maxNgramWords = 3;
+		DataSwizzler ds = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
 
 		try (BufferedReader r = new BufferedReader(new FileReader(new File(inputFilename))); //
 				BufferedWriter lw = new BufferedWriter(new FileWriter(new File(lineOutputFilename))); //
@@ -227,5 +230,40 @@ public class DataSwizzler {
 		// WordNGramTokenizer.tokenize(wordListOrdered, minNgramWords, maxNgramWords,
 		// ngrams);
 		return ngrams;
+	}
+
+	public void loadData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public Set<Character> getOutputSet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getMaxCharLength() {
+		return examplesMaxCharLength;
+	}
+
+	public Object getDataSet(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Map<Character, Integer> getCharMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	// pre-process remove numbers and punctuation, toLowerCase, trim
+	public List<String> getTransformedInput(String rawExample) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getInputCharCnt() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

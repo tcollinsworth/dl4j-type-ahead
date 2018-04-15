@@ -22,12 +22,13 @@ public class LangRequestHandler extends RequestHandler {
 		rc.response().end(respObj.encode());
 	}
 
+	// FIXME return n-type-ahead suggestions
 	private JsonObject getLangInference(Service service, JsonObject bodyJson) {
 		String rawExample = bodyJson.getString("text");
 
 		Output output = service.inferrer.infer(rawExample);
 
-		String lang = service.getClassifications()[output.classificationIdx];
+		Character lang = service.getOutputChars()[output.classificationIdx];
 
 		JsonObject respObj = new JsonObject();
 		respObj.put("lang", lang);

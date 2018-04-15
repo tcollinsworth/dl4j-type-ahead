@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
-import org.deeplearning4j.nn.conf.BackpropType;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.distribution.UniformDistribution;
 import org.deeplearning4j.nn.conf.layers.GravesLSTM;
@@ -114,10 +113,11 @@ public class RecurrentNeuralNet {
 						.dist(new UniformDistribution(0, 1)) //
 						.build()); //
 
-		listBuilder //
-				.backpropType(BackpropType.TruncatedBPTT) // limits RNN history to reduce computation overhead
-				.tBPTTBackwardLength(tbpttLength) // limits RNN history to reduce computation overhead
-				.tBPTTForwardLength(tbpttLength); // limits RNN history to reduce computation overhead
+		// Use TBTT when input sequences more than few hundred to speeds up training
+		// listBuilder //
+		// .backpropType(BackpropType.TruncatedBPTT) // limits RNN history to reduce computation overhead
+		// .tBPTTBackwardLength(tbpttLength) // limits RNN history to reduce computation overhead
+		// .tBPTTForwardLength(tbpttLength); // limits RNN history to reduce computation overhead
 
 		MultiLayerNetwork net = new MultiLayerNetwork(listBuilder.build());
 		net.init();
