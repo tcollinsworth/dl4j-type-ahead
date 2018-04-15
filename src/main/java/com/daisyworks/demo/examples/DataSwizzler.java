@@ -28,13 +28,15 @@ public class DataSwizzler {
 	private static final String wordStatsOutputFilename = "src/main/resources/examples/wordStats.txt";
 	private static final String firstCharWordMapOutputFilename = "src/main/resources/examples/firstCharWordMap.txt";
 	private static final String charMapOutputFilename = "src/main/resources/examples/charMap.txt";
-	private static final String maxLineLengthOutputFilename = "src/main/resources/examples/maxLineLength.txt";
+	private static final String maxLineCharLengthOutputFilename = "src/main/resources/examples/maxLineCharLength.txt";
+	private static final String maxNgramCharLengthOutputFilename = "src/main/resources/examples/maxNgramCharLength.txt";
 
 	private final int min1gramWordLength;
 	private final int minNgramWords;
 	private final int maxNgramWords;
 
 	private int examplesMaxCharLength;
+	private int examplesMaxNgramCharLength;
 
 	private final Map<String, Integer> wordStatsMap = new HashMap<>();
 	private final Map<Character, List<String>> firstCharWordMap = new HashMap<>();
@@ -64,7 +66,8 @@ public class DataSwizzler {
 				BufferedWriter wmw = new BufferedWriter(new FileWriter(new File(wordStatsOutputFilename))); //
 				BufferedWriter fcwmw = new BufferedWriter(new FileWriter(new File(firstCharWordMapOutputFilename))); //
 				BufferedWriter cmw = new BufferedWriter(new FileWriter(new File(charMapOutputFilename))); //
-				BufferedWriter llw = new BufferedWriter(new FileWriter(new File(maxLineLengthOutputFilename))); //
+				BufferedWriter llw = new BufferedWriter(new FileWriter(new File(maxLineCharLengthOutputFilename))); //
+				BufferedWriter nglw = new BufferedWriter(new FileWriter(new File(maxNgramCharLengthOutputFilename))); //
 		) {
 			String line;
 			while ((line = r.readLine()) != null) {
@@ -80,13 +83,18 @@ public class DataSwizzler {
 				ds.accumulateUniqueChars(line);
 				ds.wordProcessing(line, ngw);
 			}
-			ds.saveLineLength(llw);
+			ds.saveMaxLineLength(llw);
+			ds.saveMaxNgramLength(nglw);
 			ds.saveWordMaps(wmw, fcwmw);
 			ds.saveCharMap(cmw);
 		}
 	}
 
-	private void saveLineLength(BufferedWriter llw) throws IOException {
+	private void saveMaxNgramLength(BufferedWriter nglw) throws IOException {
+		nglw.write(String.format("%d", examplesMaxNgramCharLength));
+	}
+
+	private void saveMaxLineLength(BufferedWriter llw) throws IOException {
 		llw.write(String.format("%d", examplesMaxCharLength));
 	}
 
@@ -181,6 +189,9 @@ public class DataSwizzler {
 				String[] ngramWords = ngram.split(" ");
 				if (ngramWords.length < 2 && ngramWords[0].length() < min1gramWordLength) {
 					return; // continue
+				}
+				if (examplesMaxNgramCharLength < ngram.length()) {
+					examplesMaxNgramCharLength = ngram.length();
 				}
 				try {
 					ngw.write(ngram);
