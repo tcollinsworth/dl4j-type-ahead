@@ -23,25 +23,25 @@ public class Trainer {
 	}
 
 	public void train(DataSetIterator trainDataSetIterator, DataSetIterator validationDataSetIterator, Evaluator evaluator) throws IOException {
-		Evaluator.printStatsHeader();
-		evaluator.printStats();
+		// Evaluator.printStatsHeader();
+		// evaluator.printStats();
 
 		for (int i = 0; i < 100000; i++) {
 			// long start = System.currentTimeMillis();
 			trainDataSetIterator.reset();
-			validationDataSetIterator.reset();
+			// validationDataSetIterator.reset();
 			// testDataSetIterator.reset();
 
 			fit(trainDataSetIterator);
 
 			trainDataSetIterator.reset();
-			validationDataSetIterator.reset();
+			// validationDataSetIterator.reset();
 			// testDataSetIterator.reset();
 
-			double valAccuracy = evaluator.printStats();
+			// double valAccuracy = evaluator.printStats();
 			if (i % 10 == 0) {
 				boolean saveUpdater = true;
-				rnn.saveModel("src/main/resources/models/model-iteration-" + i + "-valAccuracy-" + valAccuracy + ".zip", saveUpdater);
+				rnn.saveModel("src/main/resources/models/model-iteration-" + i + "-score-" + rnn.net.score() + ".zip", saveUpdater);
 			}
 			// System.out.println("interation train eval time " + ((System.currentTimeMillis() - start) / 1000) +
 			// " sec");

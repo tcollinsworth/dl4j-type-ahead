@@ -41,17 +41,28 @@ public class DataSwizzler {
 	private final Map<String, Integer> wordStatsMap = new HashMap<>();
 	private final Map<Character, List<String>> firstCharWordMap = new HashMap<>();
 
-	private final Set<Integer> allCharInts = new HashSet<Integer>();
+	private final Set<Integer> uniqueCharInts = new HashSet<>(); // for accumulation during pre-processing
+	private final List<String> uniqueCharList = new ArrayList<>(); // for model labels, inference, requires String
 
-	// key = char (int), val = char sorted order index from 0-n for all characters
-	// in training set
-	// encoded to uniform space eliminating gaps and outliers
-	// private static final Map<Character, Double> charMap = new HashMap<Character, Double>();
+	// key = char (int), val = char sorted order index from 0-n for all characters in training set
+	// map/encoded to eliminate gaps for efficient 1-hot encoding and to reduce unusued inputs/outputs and associated
+	// paramaters
+	private final Map<Character, Integer> charMap = new HashMap<>();
+
+	private final List<String> allTitles = new ArrayList<>();
+	private final List<String> allTitleNgrams = new ArrayList<>();
+
+	private final Map<String, List<String>> dataSets;
 
 	public DataSwizzler(int min1gramWordLength, int minNgramWords, int maxNgramWords) {
 		this.min1gramWordLength = min1gramWordLength;
 		this.minNgramWords = minNgramWords;
 		this.maxNgramWords = maxNgramWords;
+
+		// key=train|val|test val=List<Pair<class,ngrams>>
+		dataSets = new HashMap<>();
+		dataSets.put("allTitles", allTitles);
+		dataSets.put("allTitleNgrams", allTitleNgrams);
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -59,35 +70,7 @@ public class DataSwizzler {
 		int minNgramWords = 1;
 		int maxNgramWords = 3;
 		DataSwizzler ds = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
-
-		try (BufferedReader r = new BufferedReader(new FileReader(new File(inputFilename))); //
-				BufferedWriter lw = new BufferedWriter(new FileWriter(new File(lineOutputFilename))); //
-				BufferedWriter ngw = new BufferedWriter(new FileWriter(new File(ngramOutputFilename))); //
-				BufferedWriter wmw = new BufferedWriter(new FileWriter(new File(wordStatsOutputFilename))); //
-				BufferedWriter fcwmw = new BufferedWriter(new FileWriter(new File(firstCharWordMapOutputFilename))); //
-				BufferedWriter cmw = new BufferedWriter(new FileWriter(new File(charMapOutputFilename))); //
-				BufferedWriter llw = new BufferedWriter(new FileWriter(new File(maxLineCharLengthOutputFilename))); //
-				BufferedWriter nglw = new BufferedWriter(new FileWriter(new File(maxNgramCharLengthOutputFilename))); //
-		) {
-			String line;
-			while ((line = r.readLine()) != null) {
-				if (line.trim().isEmpty()) {
-					continue;
-				}
-				line = ds.lineTransforms(line);
-				line = ds.charTransforms(line);
-				if (ds.examplesMaxCharLength < line.length()) {
-					ds.examplesMaxCharLength = line.length();
-				}
-				ds.writeLineOutput(line, lw);
-				ds.accumulateUniqueChars(line);
-				ds.wordProcessing(line, ngw);
-			}
-			ds.saveMaxLineLength(llw);
-			ds.saveMaxNgramLength(nglw);
-			ds.saveWordMaps(wmw, fcwmw);
-			ds.saveCharMap(cmw);
-		}
+		ds.loadData();
 	}
 
 	private void saveMaxNgramLength(BufferedWriter nglw) throws IOException {
@@ -99,23 +82,20 @@ public class DataSwizzler {
 	}
 
 	private void accumulateUniqueChars(String sequence) {
-		sequence.chars().forEach((c) -> allCharInts.add(c));
+		sequence.chars().forEach((c) -> uniqueCharInts.add(c));
 	}
 
 	private void saveCharMap(BufferedWriter cmw) throws IOException {
-		Integer[] uniquChars = allCharInts.toArray(new Integer[0]);
-		Arrays.sort(uniquChars);
-
-		// cmw.write(Arrays.toString(uniquChars));
-		// cmw.write('\n');
-		// Create and persist map of chars for input vector - needs to be reusable.
-		// 10 - 255, then all higher map as discovered
+		Integer[] uniqueChars = uniqueCharInts.toArray(new Integer[0]);
+		Arrays.sort(uniqueChars);
 
 		int[] i = { 0 };
-		// Arrays.asList(uniquChars).stream().filter((c) -> c > 255).forEach((c) ->
-		// persistChar(++i[0], c, w));
-		Arrays.asList(uniquChars).forEach((c) -> persistChar(i[0]++, c, cmw));
-		// cmw.write('\n');
+
+		Arrays.asList(uniqueChars).forEach((c) -> {
+			uniqueCharList.add(Character.toString((char) c.intValue()));
+			charMap.put((char) c.intValue(), i[0]);
+			persistChar(i[0]++, c, cmw);
+		});
 	}
 
 	private void persistChar(int i, Integer c, BufferedWriter w) {
@@ -193,6 +173,7 @@ public class DataSwizzler {
 				if (examplesMaxNgramCharLength < ngram.length()) {
 					examplesMaxNgramCharLength = ngram.length();
 				}
+				allTitleNgrams.add(ngram);
 				try {
 					ngw.write(ngram);
 					ngw.write('\n');
@@ -243,28 +224,45 @@ public class DataSwizzler {
 		return ngrams;
 	}
 
-	public void loadData() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public Set<Character> getOutputSet() {
-		// TODO Auto-generated method stub
-		return null;
+	public void loadData() throws FileNotFoundException, IOException {
+		try (BufferedReader r = new BufferedReader(new FileReader(new File(inputFilename))); //
+				BufferedWriter lw = new BufferedWriter(new FileWriter(new File(lineOutputFilename))); //
+				BufferedWriter ngw = new BufferedWriter(new FileWriter(new File(ngramOutputFilename))); //
+				BufferedWriter wmw = new BufferedWriter(new FileWriter(new File(wordStatsOutputFilename))); //
+				BufferedWriter fcwmw = new BufferedWriter(new FileWriter(new File(firstCharWordMapOutputFilename))); //
+				BufferedWriter cmw = new BufferedWriter(new FileWriter(new File(charMapOutputFilename))); //
+				BufferedWriter llw = new BufferedWriter(new FileWriter(new File(maxLineCharLengthOutputFilename))); //
+				BufferedWriter nglw = new BufferedWriter(new FileWriter(new File(maxNgramCharLengthOutputFilename))); //
+		) {
+			String line;
+			while ((line = r.readLine()) != null) {
+				if (line.trim().isEmpty()) {
+					continue;
+				}
+				line = lineTransforms(line);
+				line = charTransforms(line);
+				if (examplesMaxCharLength < line.length()) {
+					examplesMaxCharLength = line.length();
+				}
+				allTitles.add(line);
+				writeLineOutput(line, lw);
+				accumulateUniqueChars(line);
+				wordProcessing(line, ngw);
+			}
+			saveMaxLineLength(llw);
+			saveMaxNgramLength(nglw);
+			saveWordMaps(wmw, fcwmw);
+			saveCharMap(cmw);
+			System.out.println("done");
+		}
 	}
 
 	public int getMaxCharLength() {
 		return examplesMaxCharLength;
 	}
 
-	public Object getDataSet(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Map<Character, Integer> getCharMap() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> getDataSet(String string) {
+		return dataSets.get(string);
 	}
 
 	// pre-process remove numbers and punctuation, toLowerCase, trim
@@ -274,7 +272,24 @@ public class DataSwizzler {
 	}
 
 	public int getInputCharCnt() {
-		// TODO Auto-generated method stub
-		return 0;
+		return uniqueCharList.size();
+	}
+
+	public List<String> getOutputChars() {
+		return uniqueCharList;
+	}
+
+	public Map<Character, Integer> getCharMap() {
+		return charMap;
+	}
+
+	public Character[] getOutputCharsArray() {
+		Character[] outputChars = new Character[uniqueCharList.size()];
+		int i[] = { 0 };
+		uniqueCharList.forEach(c -> {
+			outputChars[i[0]] = c.charAt(0);
+			i[0] += 1;
+		});
+		return null;
 	}
 }

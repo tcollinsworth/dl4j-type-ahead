@@ -67,14 +67,14 @@ public class Service {
 		swizzler = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
 		swizzler.loadData();
 
-		outputCharCnt = swizzler.getOutputSet().size();
-		outputChars = swizzler.getOutputSet().toArray(new Character[0]);
+		outputCharCnt = swizzler.getOutputChars().size();
+		outputChars = swizzler.getOutputCharsArray();
 
 		trainDataSetIterator = new ExampleCharSeqEncodedVectorDataSetIterator( //
 				"train", //
 				swizzler.getMaxCharLength(), //
-				swizzler.getDataSet("train"), //
-				swizzler.getOutputSet(), //
+				swizzler.getDataSet("allTitleNgrams"), // allTitles || allTitleNgrams
+				swizzler.getOutputChars(), //
 				miniBatchSize, //
 				swizzler.getCharMap());
 
@@ -82,14 +82,16 @@ public class Service {
 
 		inferrer = new Inferrer(rnn, swizzler.getCharMap(), this);
 		trainer = new Trainer(rnn);
-		evaluator = new Evaluator(rnn, trainDataSetIterator, validationDataSetIterator, testDataSetIterator);
 
-		evaluator.createAndRegisterEvaluationReporter();
+		train();
+		// evaluator = new Evaluator(rnn, trainDataSetIterator, validationDataSetIterator, testDataSetIterator);
+
+		// evaluator.createAndRegisterEvaluationReporter();
 
 		Vertx vertx = Vertx.vertx();
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
-		router.route(HttpMethod.POST, "/lang-inference").blockingHandler(routingContext -> new TypeAheadRequestHandler(routingContext, this));
+		router.route(HttpMethod.POST, "/typeahead").blockingHandler(routingContext -> new TypeAheadRequestHandler(routingContext, this));
 		router.route(HttpMethod.POST, "/model-admin").blockingHandler(routingContext -> new ModelAdminRequestHandler(routingContext, this));
 		router.route("/*").handler(StaticHandler.create().setCacheEntryTimeout(1));
 

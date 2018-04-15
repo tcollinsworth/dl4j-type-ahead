@@ -11,6 +11,7 @@ import org.deeplearning4j.nn.conf.layers.GravesLSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.learning.config.RmsProp;
@@ -26,7 +27,7 @@ public class RecurrentNeuralNet {
 	private int iterations;
 	private double learningRate;
 	private int seed; // initialization seed, keep same for reproducibility
-	private double regularizationL2;
+	// private double regularizationL2;
 
 	public MultiLayerNetwork net;
 
@@ -37,7 +38,7 @@ public class RecurrentNeuralNet {
 		this.iterations = iterations;
 		this.learningRate = learningRate;
 		this.seed = seed;
-		this.regularizationL2 = regularizationL2;
+		// this.regularizationL2 = regularizationL2;
 
 		initializeNewModel();
 	}
@@ -60,7 +61,7 @@ public class RecurrentNeuralNet {
 	 */
 	public void initializeNewModel() {
 		int hiddenNodes = 200;
-		int tbpttLength = 50;
+		// int tbpttLength = 50;
 
 		// https://deeplearning4j.org/features //optimzation algorithms, updaters, hyperparameters, Loss/Objective
 		// functions, Activation Functions
@@ -121,6 +122,7 @@ public class RecurrentNeuralNet {
 
 		MultiLayerNetwork net = new MultiLayerNetwork(listBuilder.build());
 		net.init();
+		net.setListeners(new ScoreIterationListener(1));
 		this.net = net;
 
 		// Print the number of parameters in the network (and for each layer)
