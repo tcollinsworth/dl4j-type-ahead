@@ -257,8 +257,12 @@ public class DataSwizzler {
 		}
 	}
 
-	public int getMaxCharLength() {
+	public int getMaxLineCharLength() {
 		return examplesMaxCharLength;
+	}
+
+	public int getMaxNgramCharLength() {
+		return examplesMaxNgramCharLength;
 	}
 
 	public List<String> getDataSet(String string) {

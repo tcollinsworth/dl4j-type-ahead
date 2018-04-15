@@ -10,8 +10,6 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.DataSetPreProcessor;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.indexing.INDArrayIndex;
-import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,43 +64,72 @@ public class ExampleCharSeqEncodedVectorDataSetIterator implements DataSetIterat
 		return ds;
 	}
 
+	/**
+	 * <pre>
+	 * 
+	 *     T  examples
+	 * 	  O  +--+--+--+
+	 *   H  /1 /  /  /|
+	 * 	/  +--+--+--+ +
+	 * 1  /  /  /  /|/|
+	 * 	 +--+0-+--+ + +
+	 *   |  |  |  |/|/
+	 *   +--+--+--+ +   
+	 *   |2 |  |  |/
+	 *   +--+--+--+
+	 *    e  e  e
+	 *    x  x  x
+	 *    a  a  a
+	 *    m  m  m
+	 *    p  p  p
+	 *    l  l  l
+	 *    e  e  e
+	 *    
+	 *    0  1  2
+	 * 
+	 * 	 dimension 0 = minibatch size or examples
+	 * 	 dimension 1 = uniqueChars (1-hot) vector - each input represents unique character, only 1 input is high/1 in vector
+	 * 	 dimension 2 = max minibatch example length (char sequence length) - holds a single training or inference example
+	 * 	 vector memory ordering c = row first, order f (fortran) = column first - use f for most efficiency
+	 * https://nd4j.org/userguide.html?__hstc=3042607.d889426ce588e6f9166b006d9576c0e8.1523754595153.1523754595153.1523820923997.2&__hssc=3042607.1.1523820923997&__hsfp=2102497138#inmemory
+	 * </pre>
+	 */
 	private DataSet getDataSet(List<String> miniBatchExamples) {
-
-		// FIXME
-
-		INDArray inputFeatureMatrix = Nd4j.create(new int[] { miniBatchExamples.size(), 1, exampleMaxCharLength }, 'f');
+		INDArray inputFeatureMatrix = Nd4j.create(new int[] { miniBatchExamples.size(), charMap.size(), exampleMaxCharLength }, 'f');
+		// Log.info("inputFeatureMatrix {}", inputFeatureMatrix.shapeInfoToString());
 		INDArray labelsMatrix = Nd4j.create(new int[] { miniBatchExamples.size(), outputChars.size(), exampleMaxCharLength }, 'f');
-		// Masks 1 if data present, 0 for padding
-		INDArray featuresMaskMatrix = Nd4j.zeros(miniBatchExamples.size(), exampleMaxCharLength);
-		INDArray labelsMaskMatrix = Nd4j.zeros(miniBatchExamples.size(), exampleMaxCharLength);
+		// Log.info("labelsMatrix {}", labelsMatrix.shapeInfoToString());
 
-		for (int exampleIdx = 0; exampleIdx < miniBatchExamples.size(); exampleIdx++) {
-			String example = miniBatchExamples.get(exampleIdx);
+		// Don't need masks because every input has output prediction label
+		// Where's the input features located? Masks 1 if input feature present, 0 for padding
+		// INDArray featuresMaskMatrix = Nd4j.zeros(miniBatchExamples.size(), exampleMaxCharLength);
+		// Log.info("featuresMaskMatrix {}", featuresMaskMatrix.shapeInfoToString());
+		// Where's the output labels located? Masks 1 if label present, 0 for padding
+		// INDArray labelsMaskMatrix = Nd4j.zeros(miniBatchExamples.size(), exampleMaxCharLength);
+		// Log.info("labelsMaskMatrix {}", labelsMaskMatrix.shapeInfoToString());
 
-			INDArrayIndex[] indices = new INDArrayIndex[] { //
-			NDArrayIndex.point(exampleIdx), //
-					NDArrayIndex.all(), //
-					NDArrayIndex.interval(0, exampleMaxCharLength) };
+		// iterate examples, then example setting 1-HOT
+		for (int mbIdx = 0; mbIdx < miniBatchExamples.size(); mbIdx++) {
+			String example = miniBatchExamples.get(mbIdx);
+			// since next character in sequence is the prediction, the last example character has no output prediction
+			// label
+			for (int exampleIdx = 0; exampleIdx < example.length() - 1; exampleIdx++) {
+				int oneHotCharIdx = charMap.get(example.charAt(exampleIdx));
+				inputFeatureMatrix.putScalar(new int[] { mbIdx, oneHotCharIdx, exampleIdx }, 1);
 
-			// inputFeatureMatrix.putRow(exampleIdx, getExampleMatrix(example)); //simpler, same effect/result
-			inputFeatureMatrix.put(indices, getExampleMatrix(example));
+				int labelOneHotCharIdx = charMap.get(example.charAt(exampleIdx + 1));
+				labelsMatrix.putScalar(new int[] { mbIdx, labelOneHotCharIdx, exampleIdx }, 1);
 
-			// for current example, set each corresponding feature mask value to 1 for the length of the
-			// example, leaving padding values 0
-			featuresMaskMatrix.get(new INDArrayIndex[] { NDArrayIndex.point(exampleIdx), NDArrayIndex.interval(0, example.length()) }).assign(1);
-
-			int classIdx = 0; // FIXME getLabelClassIdx(classification);
-			int labelAtLastFeatureIdx = example.length() - 1;
-			labelsMatrix.putScalar(new int[] { exampleIdx, classIdx, labelAtLastFeatureIdx }, 1.0);
-
-			labelsMaskMatrix.putScalar(new int[] { exampleIdx, labelAtLastFeatureIdx }, 1.0);
+				// featuresMaskMatrix.putScalar(exampleIdx, 1);
+				// labelsMaskMatrix.putScalar(exampleIdx, 1);
+			}
 		}
 
-		DataSet ds = new DataSet(inputFeatureMatrix, labelsMatrix, featuresMaskMatrix, labelsMaskMatrix);
+		DataSet ds = new DataSet(inputFeatureMatrix, labelsMatrix);
 		Log.debug("inputFeatureMatrix {}", inputFeatureMatrix.shapeInfoToString());
 		Log.debug("labelsMatrix {}", labelsMatrix.shapeInfoToString());
-		Log.debug("featuresMaskMatrix {}", featuresMaskMatrix.shapeInfoToString());
-		Log.debug("labelsMaskMatrix {}", labelsMaskMatrix.shapeInfoToString());
+		// Log.debug("featuresMaskMatrix {}", featuresMaskMatrix.shapeInfoToString());
+		// Log.debug("labelsMaskMatrix {}", labelsMaskMatrix.shapeInfoToString());
 		return ds;
 	}
 
@@ -113,18 +140,6 @@ public class ExampleCharSeqEncodedVectorDataSetIterator implements DataSetIterat
 			miniBatch.add(dataSet.get(cursor));
 		}
 		return miniBatch;
-	}
-
-	private INDArray getExampleMatrix(String example) {
-		INDArray exampleMatrix = Nd4j.zeros(exampleMaxCharLength, 1);
-
-		// iterate the example char sequence
-		for (int exampleCharIdx = 0; exampleCharIdx < example.length(); exampleCharIdx++) {
-			double uniqueCharIdx = charMap.get(example.charAt(exampleCharIdx));
-			exampleMatrix.putScalar(new int[] { exampleCharIdx, 0 }, uniqueCharIdx);
-		}
-		Log.debug("exampleMatrix {}", exampleMatrix.shapeInfoToString());
-		return exampleMatrix;
 	}
 
 	@Override

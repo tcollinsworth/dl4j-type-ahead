@@ -72,7 +72,7 @@ public class Service {
 
 		trainDataSetIterator = new ExampleCharSeqEncodedVectorDataSetIterator( //
 				"train", //
-				swizzler.getMaxCharLength(), //
+				swizzler.getMaxNgramCharLength(), // getMaxLineCharLength || getMaxNgramCharLength
 				swizzler.getDataSet("allTitleNgrams"), // allTitles || allTitleNgrams
 				swizzler.getOutputChars(), //
 				miniBatchSize, //
