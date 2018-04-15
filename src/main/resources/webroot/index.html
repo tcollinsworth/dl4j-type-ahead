@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>AI Demo</title>
+    <meta name="description" content="AI Demo">
+    <meta name="author" content="Troy Collinsworth">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <hr>
+    <div class="testParent" title="Predicts language from test&#13;
+Strips all numbers and punctuation&#13;
+Converts text to lower case&#13;
+Infers from ngram words">
+      <textarea id="example" rows="10" cols="75" placeholder="Enter text to detect language: English, French, German, Dutch, Italian, Spanish, or Welsh"></textarea>
+      <div id="predictions"></div>
+    </div>
+    <div class="infer">
+      <button id="infer" type="button" title="Infer/predict input text classification&#13;
+        English, French, German, Dutch, Italian, Spanish, or Welsh">Infer/Predict</button>
+    </div>
+    <div class="modelAdmin">
+      <button id="save" type="button" title="Saves current trained model">Save</button><button id="load" type="button" title="Loads trained model">Load</button><input id="filename" type="test" placeholder="troys-model"/>
+    </div>
+    <div class="modelAdmin">
+      <button id="reset" type="button" title="Replaces current model with new untrained model&#13;
+        Clears training & validation datasets">Reset</button>
+    </div>
+    <hr>
+    <div id="probMatrix"></div>
+    <script src="config.js"></script>
+    <script src="lang.js"></script>
+  </body>
+</html>

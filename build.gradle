@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+//https://docs.gradle.org/current/userguide/application_plugin.html
+
+repositories {
+  //jcenter()
+  mavenCentral()
+}
+
+dependencies {
+    compile 'org.deeplearning4j:deeplearning4j-core:0.9.1'    
+    compile 'org.nd4j:nd4j-native-platform:0.9.1' // GPU was training slower
+    //compile 'org.nd4j:nd4j-cuda-8.0-platform:0.9.1' // reverts to CPU if GPU or compatible drivers/libs unavailable
+    compile 'org.datavec:datavec-api:0.9.1'
+    compile 'org.deeplearning4j:deeplearning4j-nlp:0.9.1'
+    compile 'io.vertx:vertx-core:3.5.0'
+    compile 'io.vertx:vertx-web:3.5.0'
+    
+	//compile 'org.json:json:20171018'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+group = "com.daisyworks"
+version = '0.1.0'
+
+jar {
+  manifest {
+    attributes(
+      'Implementation-Title':project.name,
+      'Implementation-Version': project.version
+    )
+  }
+}
+
+idea{
+    project {
+        languageLevel = '1.8'
+    }
+    module {
+        downloadJavadoc = true // defaults to false
+        downloadSources = true
+    }
+}
+
+mainClassName = "com.daisyworks.demo.Service"
+

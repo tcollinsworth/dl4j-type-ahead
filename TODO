@@ -1,0 +1,11 @@
+source data
+tokenize to words
+lower case, strip punctuation except apostrophe in word, keep hyphen in word
+
+word map with counts - for stop words, for spell check (search index for lookup)
+word2vec for similarity
+
+1-hot char map input
+seed
+predictions/sample from distributions
+1-hot char map output

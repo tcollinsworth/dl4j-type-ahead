@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.testParent {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.modelAdmin {
+  margin-top: 0.5em;
+}
+
+#example {
+  float:left;
+}
+
+#predictions {
+  margin-left: 1em;
+  float: left;
+}
