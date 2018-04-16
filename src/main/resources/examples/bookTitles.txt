@@ -1,0 +1,500 @@
+eclipse step-by-step
+a professional and practitioner's guide to public relations research measurement and evaluation second edition
+mean girls at work how to stay professional when things get personal
+cyber security and global information assurance threat analysis and response solutions
+how to persuade and influence people powerful techniques to get your own way more often
+think tanks public policy and the politics of expertise
+applied optimization with matlab programming second edition
+homeowner's coverage guide 4th edition
+cisco router and switch forensics investigating and analyzing malicious network activity
+recent developments in biologically inspired computing
+applied cyber security and the smart grid implementing security controls into the modern power infrastructure
+data structures and network algorithms
+stress less achieve more simple ways to turn pressure into a positive force in your life
+enterprise information systems for business integration in smes technological organizational and social dimensions
+the savvy manager 5 skills that drive optimal performance
+pro mapping in biztalk server 2009
+mobile wireless communications
+survival guide for lotus notes and domino administrators
+off-the-shelf it solutions a practitioner's guide to selection and procurement
+fundamentals of modern manufacturing materials processes and systems third edition
+the presentation secrets of steve jobs how to be insanely great in front of any audience
+know can do put your know-how into action
+sas ets 12.1 user's guide
+comparative approaches to using r and python for statistical data analysis
+sql for eserver i5 and iseries
+machine learning applications in software engineering
+astd's ultimate performance management training to transform performance reviews into performance partnerships
+beginning java se 6 platform from novice to professional
+integrated circuit packaging assembly and interconnections
+up is not the only way rethinking career mobility
+ruby on rails for microsoft developers
+cobol programmers swing with java
+tcp ip essentials a lab-based approach
+manager's guide to operations management
+matlab recipes for earth sciences
+mobile computing concepts methodologies tools and applications volume iii
+antennas for base stations in wireless communications
+project management toolbox second edition
+multirate filtering for digital signal processing matlab applications
+a guide to the project management body of knowledge pmbok guide sixth edition
+handbook of research on digital media and advertising user generated content consumption
+youtube marketing power how to use video to find more prospects launch your products and reach a massive audience
+powerpoint presentations that sell
+cybersecurity managing systems conducting testing and investigating intrusions
+handbook of research on modern cryptographic solutions for computer and cyber security
+the pmosig program management office handbook strategic and tactical insights for improving results
+applied software measurement global analysis of productivity and quality third edition
+fedora 11 and red hat enterprise linux bible
+beginning phonegap
+a practical guide to earned value project management second edition
+the new leader's 100-day action plan how to take charge build or merge your team and get immediate results fourth edition
+vmware vsphere for dummies
+hybrid laser-arc welding
+learning for the long run 7 practices for sustaining a resilient learning organization
+software engineering for modern web applications methodologies and technologies
+capitalists arise end economic inequality grow the middle class heal the nation
+titanium alloys modeling of microstructure properties and applications
+robotic navigation and mapping with radar
+nothing but the truth secrets from top intelligence experts to control conversations and get the information you need
+perfect phrases for setting performance goals hundreds of ready-to-use goals for any performance plan or review
+passive rf component technology materials techniques and applications
+microsoft business intelligence for dummies
+business intelligence making decisions through data analytics
+mergers acquisitions and other restructuring activities integrated approach to process tools cases and solutions sixth edition
+oracle fusion middleware patterns real-world composite applications using soa bpm enterprise 2.0 business intelligence identity management and application infrastructure
+digital evidence and computer crime forensic science computers and the internet third edition
+java se 7 programming essentials
+microwave radio transmission design guide second edition
+introduction to direction-of-arrival estimation
+information risk management a practitioner's guide
+from crisis to calling finding your moral center in the toughest decisions
+macs all-in-one for dummies 2nd edition
+switching to a mac for dummies mac os x lion edition
+venture capitalists at work
+advanced image processing techniques and applications
+open source data warehousing and business intelligence
+beginning java 7
+understanding systemic risk in global financial markets
+failure analysis and fractography of polymer composites
+pro html5 programming second edition
+customercentric selling second edition
+primal teams harnessing the power of emotions to fuel extraordinary performance
+embedded linux development using eclipse
+principles of software development leadership applying project management principles to agile software development
+a sense of urgency
+setting up lamp getting linux apache mysql and php working together
+supercharged selling action guide the power to be the best
+carrots and sticks don't work build a culture of employee engagement with the principles of respect
+the relationship code engage and empower people with purpose and passion
+applied linear algebra and optimization using matlab
+cybersecurity for hospitals and healthcare facilities a guide to detection and prevention
+hack proofing coldfusion
+executive writing skills for managers master word power to lead your teams make strategic links and develop relationships
+excel 2013 in pictures
+signals and systems with matlab computing and simulink modeling fifth edition
+second-wave enterprise resource management systems implementing for effectiveness
+introduction to random signals and applied kalman filtering with matlab exercises fourth edition
+advanced electric drives analysis control and modeling using matlab simulink
+decision making using game theory an introduction for managers
+solving statics problems with matlab
+the true cost of information security breaches and cyber crime
+digital video and hdtv algorithms and interfaces
+coaching and mentoring how to develop top talent and achieve stronger performance
+electromagnetics for high-speed analog and digital communication circuits
+tool steels fifth edition
+stress less achieve more simple ways to turn pressure into a positive force in your life
+a guide to matlab object-oriented programming
+inverse synthetic aperture radar imaging with matlab algorithms
+architecture patterns for it service management resource planning and governance making shoes for the cobbler's children second edition
+practical interfacing in the laboratory using a pc for instrumentation data analysis and control
+lean cost management accounting for lean by establishing flow
+the training manager's desktop guide
+memory systems cache dram disk
+c# design and development expert one-on-one
+managing conflict in organizations third edition
+fatigue and durability of structural materials
+trace chemical sensing of explosives
+nutrition for foodservice and culinary professionals fifth edition
+windows 10 for the internet of things
+professional wordpress design and development
+practice makes perfect basic english
+a culinary dictionary the chef's companion third edition
+the science of why decoding human motivation and transforming marketing strategy
+federal procurement report fiscal year 2003
+self-leadership how to become a more successful efficient and effective leader from the inside out
+microsoft powerpoint 2013 plain simple
+numerical polynomial algebra
+cloud computing theory and practice
+professional management of housekeeping operations fifth edition
+think twice harnessing the power of counterintuition
+government reform committee fisma hearing report
+troubleshooting java on linux
+flash 5 interactivity and scripting
+confessions of a successful cio how the best cios tackle their toughest business challenges
+project management for dummies 2nd edition
+interviewing and selecting high performers a practical guide to effective hiring
+building pathology deterioration diagnostics and intervention
+live sound fundamentals
+communication relationships and practices in virtual work
+websphere application server v7.0 concepts planning and design
+introduction to supply chain management technologies second edition
+beginning cryptography in java
+pro linux embedded systems
+the best damn exchange sql and iis book period
+capital budgeting financial appraisal of investment projects
+security audit and control features oracle database 3rd edition
+catalytic coaching the end of the performance review
+handbook of procurement
+the handbook of negotiation and culture
+the future of boards meeting the governance challenges of the twenty-first century
+supply chain management in the retail industry
+corporate event project management
+conversational spanish for hospitality managers and supervisors basic language skills for daily operations
+chef's book of formulas yields and sizes third edition
+advanced techniques in multimedia watermarking image video and audio applications
+certification guide series ibm tivoli netcool impact v4.0 implementation
+advanced wireless networks cognitive cooperative opportunistic 4g technology second edition
+the real mcts sql server 2008 exam 70-432 prep kit database implementation and maintenance
+introduction to the dimensional stability of composite materials
+lte for umts ofdma and sc-fdma based radio access
+sql server 2008 transact-sql recipes
+concurrent and real-time programming in java
+big data using smart big data analytics and metrics to make better decisions and improve performance
+think like your customer a winning strategy to maximize sales by understanding and influencing how and why your customers buy
+extraordinary pr ordinary budget a strategy guide
+international marketing research second edition
+network security a decision and game-theoretic approach
+getting started in technical analysis
+requirements engineering a good practice guide
+the 21st century at work forces shaping the future workforce and workplace in the united states
+router security strategies securing ip network traffic planes segment and protect traffic in the data control management and services planes
+flight catering second edition
+communicating effectively write speak and present with authority
+metasploit toolkit for penetration testing exploit development and vulnerability research
+dialogue mapping building shared understanding of wicked problems
+financial analysis a controller's guide second edition
+your brain at work strategies for overcoming distraction regaining focus and working smarter all day long
+managing your documentation projects
+ruby on rails for dummies
+hospitality financial accounting
+giving presentations
+systems engineering with sysml uml modeling analysis design
+purchasing selection and procurement for the hospitality industry sixth edition
+correct your english errors avoid 99% of the common mistakes made by learners of english
+specification for the extensible configuration checklist description format xccdf
+microsoft log parser toolkit
+practice makes perfect advanced english grammar for esl learners
+wireless network hacks mods for dummies
+apache maven 2 effective implementation build and manage applications with maven continuum and archiva
+java data access jdbc jndi and jaxp
+restaurant planning design and construction a survival manual for owners operators and developers
+windows 8 executive summary what your business needs to know
+ipad iphone administrators guide enterprise deployment strategies and security solutions
+the real-time contact center
+ruby recipes a problem-solution approach
+high performance teams how to make them work
+probabilities the little numbers that rule our lives second edition
+positioning the battle for the mind 20th anniversary edition
+phr   sphr exam for dummies
+planning and design for high-tech web-based training
+lean assembly the nuts and bolts of making assembly operations flow
+organizational traps leadership culture organizational design
+encyclopedia of management 4th ed
+discovering the leader in you how to realize your leadership potential new and revised
+ten lectures on wavelets
+hands-on ethical hacking and network defense
+getting started with oracle soa suite 11g r1 a hands-on tutorial fast-track your soa adoption build a service-oriented composite application in just hours
+statistics for six sigma made easy second edition
+internetworking technological foundations and applications
+java masterclass java exceptions assertions and logging
+advanced mechanics of materials sixth edition
+itaf a professional practices framework for is audit assurance 3rd edition
+cultural tourism global and local perspectives
+network cabling handbook
+effective treatment of logistics resource issues in the air force planning programming and budgeting system ppbs process
+pci bus demystified second edition
+efs systems on a linux base channel adapters
+supply chain transformation building and executing an integrated supply chain strategy
+digital signal and image processing
+solving dynamics problems with mathcad
+essentials of computational chemistry theories and models second edition
+wireless crash course third edition
+big data mba driving business strategies with data science
+numerical methods with matlab
+develop your nlp skills 3rd edition
+pro express.js
+investigating workplace harassment how to be fair thorough and legal
+performance dashboards measuring monitoring and managing your business second edition
+floating your company the essential guide to going public 3rd edition
+distributed power amplifiers for rf and microwave communications
+network programming with go essential skills for using and securing networks
+the fundamentals of risk measurement
+controls and assurance in the cloud using cobit 5
+developing resilient organizations how to create an adaptive high-performance and engaged organization
+mastery in coaching a complete psychological toolkit for advanced coaching
+why simple wins escape the complexity trap and get to work that matters
+resilience how to cope when everything around you keeps changing
+culinary math second edition
+wordpress for web developers an introduction for web professionals
+the savvy manager 5 skills that drive optimal performance
+micro- and nano-scale sensors and transducers
+ocp java se 6 programmer practice exams exam 310-065
+new approaches to e-reserve linking sharing and streaming
+grace meets grit how to bring out the remarkable courageous leader within
+the diagrams book 50 ways to solve any problem visually
+managing to the new regulatory reality doing business under the dodd-frank act
+dealing with difficult people third edition
+too big to ignore the business case for big data
+disk-based algorithms for big data
+employee relations essentials 2015 edition
+windows azure web sites
+protecting mobile networks and devices challenges and solutions
+arduino and lego projects
+learn unity 4 for ios game development
+html5 24-hour trainer
+getting started with ibm api connect concepts and architecture guide
+sas visual analytics 6.1 getting started with exploration and reporting
+quick team-building activities for busy managers 50 exercises that get results in just 15 minutes second edition
+professional embedded arm development
+teradata architecture for it and developers
+human resource management practices assessing added value
+mobile software diagnostics an introduction version 1.0
+proc sql beyond the basics using sas second edition
+control system migrations a practical project management handbook
+reversing disassembly reconstruction accelerated
+leading with emotional intelligence hands-on strategies for building confident and collaborative star performers
+intercultural communication for managers
+continuous improvement with lean study guide student edition
+ibm z os v2r2 jes2 jes3 and sdsf
+ethics in health administration a practical approach for decision makers third edition
+putting the power in your powerpoint with 21 mistakes to avoid and 9 powerpoint philosophies
+andy me crisis and transformation on the lean journey second edition
+leadership and personnel management concepts methodologies tools and applications volume iv
+what is six sigma process management
+successful information systems implementation the human side second edition
+welding essentials questions and answers
+server disk management in a windows environment
+standard handbook of audio and radio engineering second edition
+service life cycle tools and technologies methods trends and advances
+standard work for lean healthcare
+translating corporate strategy into project strategy realizing corporate strategy through project management
+collaborative business process engineering and global organizations frameworks for service integration
+information security architecture an integrated approach to security in the organization second edition
+autocad 2006 pour les nuls
+the really useful elearning instruction manual your toolkit for putting elearning into practice
+career success in engineering a guide for students and new professionals
+drupal 7 primer creating cms-based websites a guide for beginners
+introduction to nanoscale science and technology
+financial models and tools for managing lean manufacturing
+understanding synthetic aperture radar images
+practical guide to polyethylene
+magnetic actuators and sensors
+microsoft forefront uag 2010 administrator's handbook take full command of microsoft forefront unified access gateway to secure your business applications and provide dynamic remote access with directaccess
+ship stability for masters and mates seventh edition
+the synthesis effect your direct path to personal power and transformation
+audio signal processing and coding
+pro android web apps develop for android using html5 css3 javascript
+the pmi project management fact book second edition
+rails 5 revealed
+understanding automotive electronics an engineering perspective seventh edition
+the human aspects of project management managing the project team volume three
+the design of active crossovers
+access 2007 manual de referencia
+the storytelling pocketbook
+rfid a guide to radio frequency identification
+word 2007 pour les nuls
+airworthiness an introduction to aircraft certification-a guide to understanding jaa easa and faa standards
+software sizing estimation and risk management when performance is measured performance improves
+microwave passive direction finding
+troubleshooting a technician's guide 2nd edition
+25 ways to win with people how to make others feel like a million bucks
+managing oneself harvard business review classics
+encyclopedia of information science and technology second edition volume iii d-f
+making millions in direct sales the 8 essential activities direct sales managers must do every day to build a successful team and earn more money
+the visibooks guide to base 2.0
+modern embedded computing designing connected pervasive media-rich systems
+programmable logic controllers 
+a briefcase book manager's guide to mobile learning
+style the art of writing well third edition
+mcts windows server 2008 network infrastructure configuration exam 70-642
+adobe dreamweaver cs5 bible
+robust design of microelectronics assemblies against mechanical shock temperature and moisture
+quad rotorcraft control vision-based hovering and navigation
+42 rules for successful collaboration a practical approach to working with people processes and technology 2nd edition
+gnss applications and methods
+oracle big data handbook
+interviewing simple ideas for selecting the best
+test development fundamentals for certification and evaluation
+professional c# 2008
+canon eos 70d digital field guide
+citizen brand 10 commandments for transforming brands in a consumer democracy
+ccna cisco certified network associate deluxe study guide sixth edition
+data collection planning for and collecting all types of data
+a short course in international business ethics combining ethics and profits in global business 3rd edition
+pro biztalk 2009
+the design manager's handbook
+principles of physical optics
+piping materials guide selection and applications
+practical machinery vibration analysis and predictive maintenance
+the power of intuition how to use your gut feelings to make better decisions at work
+mems materials and processes handbook
+optimizing and testing wlans proven techniques for maximum performance
+fundamentals of health care financial management a practical guide to fiscal issues and activities third edition
+interagency acquisitions what is the problem
+an executive guide to ifrs content costs and benefits to business
+mechanics of user identification and authentication fundamentals of identity management
+api design for c++
+guide to project management getting it right and achieving lasting benefit second edition
+the art of war for women sun tzu's ancient strategies and wisdom for winning at work
+hold on you lost me use learning styles to create training that sticks
+beginning functional javascript functional programming with javascript using ecmascript 6
+introduction to hybrid vehicle system modeling and control
+advances in enterprise information technology security
+projekt-controlling methoden zur sicherung des projekterfolgs
+small antenna design
+how to cost and price competitive bids
+mastering windows sharepoint services 3.0
+the everything coaching mentoring book increase productivity foster talent and encourage success second edition
+controlling arbeitsbuch
+putting our differences to work the fastest way to innovation leadership and high performance
+handbook of paper and paperboard packaging technology second edition
+mobile multimedia communications concepts applications and challenges
+manned spacecraft design principles
+basic training for trainers
+inside ceo succession the essential guide to leadership transition
+sans demystified
+reliability life testing handbook volume 2
+socialnomics how social media transforms the way we live and do business 2nd edition
+uml 2.0 in action a project-based tutorial
+the securitization markets handbook structures and dynamics of mortgage- and asset-backed securities second edition
+professional sql server 2005 performance tuning
+solid liquid separation equipment selection and process design
+group policy fundamentals security and troubleshooting
+planning and control using microsoft project 2013 and 2016
+purple cow transform your business by being remarkable
+lee's loss prevention in the process industries hazard identification assessment and control volume 2 third edition
+data mining and business intelligence a guide to productivity
+if harry potter ran general electric leadership wisdom from the world of the wizards
+printing in plastic build your own 3d printer
+laptops for dummies 5th edition
+simulation modeling and analysis with arena
+a golden opportunity recruiting baby boomers into government
+the mould design guide
+experience-driven leader development models tools best practices and advice for on-the-job development
+ipv6 advanced protocols implementation
+future ready how to master business forecasting
+when teams collide managing the international team successfully
+aeration control system design a practical guide to energy and process optimization
+algorithmic and artificial intelligence methods for protein bioinformatics
+decision support systems for business intelligence second edition
+html5 canvas for dummies
+scalable computing and communications theory and practice
+handbook of enterprise systems architecture in practice
+microsoft dynamics crm 2011 administration bible
+software testing an istqb-bcs certified tester foundation guide third edition
+architecting the cloud design decisions for cloud computing service models saas paas and iaas
+under control governance across the enterprise
+universal meta data models
+now discover your strengths
+slurry transport using centrifugal pumps third edition
+biomedical image analysis and mining techniques for improved health outcomes
+performance management finding the missing pieces to close the intelligence gap
+microsoft sql server reporting services recipes for designing expert reports
+cobit 4.1
+converging ngn wireline and mobile 3g networks with ims
+minimization of welding distortion and buckling modelling and implementation
+metal shaping processes
+from difficult to disturbed understanding and managing dysfunctional employees
+php oracle web development data processing security caching xml web services and ajax
+ribbonx customizing the office 2007 ribbon
+introduction to numerical analysis using matlab
+beginning asp.net e-commerce in c# from novice to professional
+immunity to change how to overcome it and unlock potential in yourself and your organization
+the spirit of kaizen creating lasting excellence one small step at a time
+pro c# 2008 and the .net 3.5 platform fourth edition
+information security management handbook sixth edition volume 1
+the value of learning how organizations capture value and roi and translate them into support improvement and funds
+handbook of research on innovations in database technologies and applications current and future trends
+pro react
+selling to the c-suite what every executive wants you to know about successfully selling to the top
+project management essentials
+total quality management for project management
+the principles of naval architecture series strength of ships and ocean structures
+error reduction in health care a systems approach to improving patient safety second edition
+unearthing business requirements elicitation tools and techniques
+design for six sigma statistics 59 tools for diagnosing and solving problems in dfss initiatives
+digital painting fundamentals with corel painter 11
+fundamentals of big data network analysis for research and industry
+environmental policy for business a manager's guide to smart regulation
+tracing the roots of globalization and business principles second edition
+the marketing code
+tipping sacred cows kick the bad work habits that masquerade as virtues
+lte for 4g mobile broadband air interface technologies and performance
+reverberation chambers theory and applications to emc and antenna measurements
+outsourcing and offshoring of professional services business optimization in a global economy
+a guide to sales management a practitioner's view of trade sales organizations
+beginning ruby from novice to professional second edition
+listening 3.0 fasttrack audio
+pro ado.net 2.0
+ibm websphere datapower soa appliances part ii authentication and authorization
+conducting a classroom training audit measurement evaluation
+expert asp.net 2.0 advanced application design
+foundation asp.net for flash
+intelligent information technologies concepts methodologies tools and applications
+radio system design for telecommunications third edition
+nuclear space power and propulsion systems
+social media marketing the next generation of business engagement
+drive business performance enabling a culture of intelligent execution
+information security and ethics concepts methodologies tools and applications
+pro business activity monitoring in biztalk 2009
+personal data privacy and protection in a surveillance era technologies and practices
+recovery act status of states' and localities' use of funds and efforts to ensure accountability
+problogger secrets for blogging your way to a six-figure income
+ez publish 4 enterprise web sites step-by-step master ez publish's flexible web development for the enterprise
+dewalt construction professional reference residential and light commercial master edition
+using xml with domino
+quicken 2014 for dummies
+practical arduino cool projects for open source hardware
+requirements management using ibm rational requisitepro
+10 steps to successful business writing
+linux system administration recipes a problem-solution approach
+innovation myths and mythstakes mistakes
+integrated interconnect technologies for 3d nanoelectronic systems
+10 steps to successful project management
+optical design using excel practical calculations for laser optical systems
+negotiating skills
+data warehousing design and advanced engineering applications methods for complex construction
+the inspiring leader unlocking the secrets of how extraordinary leaders motivate
+navigating complexity a practice guide
+the handbook of research on scalable computing technologies
+high commitment high performance how to build a resilient organization for sustained advantage
+jasperreports 3.5 for java developers create design format and export reports with the world's most popular java reporting library
+ccna data center introducing cisco data center technologies study guide exam 640-916
+introduction to network security theory and practice
+business leadership and culture national management styles in the global economy
+c# 2008 for dummies
+marketing metaphoria what deep metaphors reveal about the minds of consumers
+enterprise software configuration management solutions for distributed and system z
+handbook of neural engineering
+mastering skype for business 2015
+iphone advanced projects
+identity management concepts technologies and systems
+introduction to supply chain management technologies second edition
+ew 103 tactical battlefield communications electronic warfare
+just enough autocad 2006
+professional iis 7 and asp.net 2.0 integrated programming
+java web services architecture
+practical j2ee application architecture
+spacecraft thermal control handbook volumei fundamentals technologies
+accounting and finance for managers a decision making approach
+windows 8 all-in-one for dummies
+data stewardship an actionable guide to effective data management and data governance
+algorithm design and applications
+chief customer officer 2.0 how to build your customer-driven growth engine
+bringing strategy back how strategic shock absorbers make planning relevant in a world of constant change
+creating business agility how convergence of cloud social mobile video and big data enables competitive advantage
+who's your gladys how to turn even the most difficult customer into your biggest fan
+c# 5.0 programmer's reference
+the linux programming interface linux and unix system programming handbook
+presentation skills training

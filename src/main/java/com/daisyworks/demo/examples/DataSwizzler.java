@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  */
 public class DataSwizzler {
 	private static final String inputFilename = "src/main/resources/examples/bookTitlesRaw500.txt";
+	// private static final String inputFilename = "src/main/resources/examples/smallUniqeTextSamples.txt";
 
 	private static final String lineOutputFilename = "src/main/resources/examples/bookTitles.txt";
 	private static final String ngramOutputFilename = "src/main/resources/examples/ngrams.txt";
@@ -67,8 +68,8 @@ public class DataSwizzler {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		int min1gramWordLength = 3;
-		int minNgramWords = 1;
-		int maxNgramWords = 3;
+		int minNgramWords = 10; // 1
+		int maxNgramWords = 10; // 3
 		DataSwizzler ds = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
 		ds.loadData();
 	}
@@ -294,6 +295,6 @@ public class DataSwizzler {
 			outputChars[i[0]] = c.charAt(0);
 			i[0] += 1;
 		});
-		return null;
+		return outputChars;
 	}
 }

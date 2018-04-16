@@ -6,7 +6,6 @@ import java.io.IOException;
 import org.deeplearning4j.nn.api.Layer;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.distribution.UniformDistribution;
 import org.deeplearning4j.nn.conf.layers.GravesLSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
@@ -104,14 +103,21 @@ public class RecurrentNeuralNet {
 						.activation(Activation.TANH) //
 						.build()) //
 
-				.layer(2, new RnnOutputLayer.Builder() //
+				.layer(2, new GravesLSTM.Builder() //
+						.nIn(hiddenNodes) //
+						.nOut(hiddenNodes) //
+						.name("Hidden") //
+						.activation(Activation.TANH) //
+						.build()) //
+
+				.layer(3, new RnnOutputLayer.Builder() //
 						.nIn(hiddenNodes) //
 						.nOut(outputCnt) //
 						.name("Output") //
 						.lossFunction(LossFunctions.LossFunction.MCXENT) //
 						.activation(Activation.SOFTMAX) //
 						// .weightInit(WeightInit.DISTRIBUTION) //
-						.dist(new UniformDistribution(0, 1)) //
+						// .dist(new UniformDistribution(0, 1)) //
 						.build()); //
 
 		// Use TBTT when input sequences more than few hundred to speeds up training

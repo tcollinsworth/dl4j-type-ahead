@@ -1,8 +1,10 @@
 package com.daisyworks.demo.model;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -16,14 +18,17 @@ import com.daisyworks.demo.Service;
  *
  */
 public class Inferrer {
+	private final Random rnd = new Random();
 	private final Service service;
 	private final RecurrentNeuralNet rnn;
 	private final Map<Character, Integer> charMap;
+	private final Character[] charArray;
 
 	public Inferrer(RecurrentNeuralNet rnn, Map<Character, Integer> charMap, Service service) {
 		this.service = service;
 		this.rnn = rnn;
 		this.charMap = charMap;
+		this.charArray = service.swizzler.getOutputCharsArray();
 	}
 
 	public Output infer(String rawExample) {
@@ -106,5 +111,50 @@ public class Inferrer {
 			this.timeMs = timeMs;
 			this.probMatrix = probMatrix;
 		}
+	}
+
+	public void randomlySample(int samples, int length) throws NoSuchAlgorithmException {
+		for (int i = 0; i < samples; i++) {
+			int seedCharIdx = Math.round(rnd.nextFloat() * (charArray.length - 1));
+			System.out.println(String.format("%d %c %s", i, charArray[seedCharIdx], getSample(charArray[seedCharIdx], length)));
+			rnn.net.rnnClearPreviousState();
+		}
+	}
+
+	// TODO can be vector of samples for parallelization and more efficiency
+	private String getSample(Character seedChar, int length) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(seedChar);
+
+		Character nextChar = seedChar;
+		for (int i = 1; i < length; i++) {
+			INDArray inputFeature = Nd4j.create(new int[] { 1, charMap.size(), 1 }, 'f');
+			inputFeature.putScalar(new int[] { 1, charMap.get(nextChar), 1 }, 1);
+
+			// sample
+			INDArray output = rnn.net.rnnTimeStep(inputFeature);
+
+			INDArrayIndex[] indices = new INDArrayIndex[] { NDArrayIndex.point(0), NDArrayIndex.all() };
+			INDArray distribution = output.get(indices);
+
+			int charIdx = sampleFromDistribution(distribution);
+			nextChar = charArray[charIdx];
+			sb.append(nextChar);
+		}
+
+		return sb.toString();
+	}
+
+	public int sampleFromDistribution(INDArray distribution) {
+		double d = rnd.nextDouble();
+		double sum = 0.0;
+		for (int i = 0; i < distribution.length(); i++) {
+			sum += distribution.getDouble(i);
+			if (d <= sum) {
+				return i;
+			}
+		}
+		// invalid probability distributionm should sum to 1.0
+		throw new IllegalArgumentException("Distribution is invalid? d=" + d + ", sum=" + sum);
 	}
 }

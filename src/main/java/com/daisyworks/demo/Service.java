@@ -7,6 +7,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
@@ -22,12 +23,12 @@ import com.daisyworks.demo.model.Trainer;
  */
 public class Service {
 	private final int min1gramWordLength = 3;
-	private final int minNgramWords = 1;
-	private final int maxNgramWords = 3;
+	private final int minNgramWords = 3; // 1
+	private final int maxNgramWords = 50; // 3
 
 	private final int PORT = 8080;
 
-	public final int miniBatchSize = 32;
+	public final int miniBatchSize = 128;
 	private final int seed = 123;
 	private final int iterations = 1;
 	private final double learningRate = 0.1; // 0.1; // 0.02;
@@ -55,18 +56,19 @@ public class Service {
 	// // evaluates the precision and accuracy of a trained model for test/validation data
 	public Evaluator evaluator;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 		Service s = new Service();
 		s.main();
 	}
 
-	private void main() throws IOException {
+	private void main() throws IOException, NoSuchAlgorithmException {
 		// for development, also requires staticHandler.setCacheEntryTimeout(1) and browser cache disable
 		System.setProperty("vertx.disableFileCaching", "true");
 
 		swizzler = new DataSwizzler(min1gramWordLength, minNgramWords, maxNgramWords);
 		swizzler.loadData();
 
+		inputFeatureCnt = swizzler.getInputCharCnt();
 		outputCharCnt = swizzler.getOutputChars().size();
 		outputChars = swizzler.getOutputCharsArray();
 
@@ -78,11 +80,14 @@ public class Service {
 				miniBatchSize, //
 				swizzler.getCharMap());
 
-		rnn = new RecurrentNeuralNet(iterations, learningRate, 1, outputCharCnt, seed, regularizationL2);
+		rnn = new RecurrentNeuralNet(iterations, learningRate, inputFeatureCnt, outputCharCnt, seed, regularizationL2);
 
 		inferrer = new Inferrer(rnn, swizzler.getCharMap(), this);
 		trainer = new Trainer(rnn);
 
+		// Test sampling
+		// rnn.restoreModel("src/main/resources/models/model-iteration-2090-score-1.249226689338684.zip", true);
+		// inferrer.randomlySample(20, 100);
 		train();
 		// evaluator = new Evaluator(rnn, trainDataSetIterator, validationDataSetIterator, testDataSetIterator);
 
@@ -106,7 +111,7 @@ public class Service {
 	}
 
 	public void train() throws IOException {
-		trainer.train(trainDataSetIterator, validationDataSetIterator, evaluator);
+		trainer.train(trainDataSetIterator, validationDataSetIterator, evaluator, this);
 	}
 
 	public Character[] getOutputChars() {
