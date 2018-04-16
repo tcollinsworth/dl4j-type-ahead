@@ -30,7 +30,7 @@ public class Service {
 
 	public final int miniBatchSize = 128;
 	private final int seed = 123;
-	private final int iterations = 1;
+	private final int iterations = 3;
 	private final double learningRate = 0.1; // 0.1; // 0.02;
 	private final double regularizationL2 = 0.00001;
 
