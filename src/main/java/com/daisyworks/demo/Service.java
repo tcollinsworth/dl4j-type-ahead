@@ -86,9 +86,9 @@ public class Service {
 		trainer = new Trainer(rnn);
 
 		// Test sampling
-		// rnn.restoreModel("src/main/resources/models/model-iteration-2090-score-1.249226689338684.zip", true);
-		// inferrer.randomlySample(20, 100);
-		train();
+		rnn.restoreModel("src/main/resources/models/model-iteration-91-score-6.328336238861084.zip", true);
+		inferrer.randomlySample(20, 100);
+		// train();
 		// evaluator = new Evaluator(rnn, trainDataSetIterator, validationDataSetIterator, testDataSetIterator);
 
 		// evaluator.createAndRegisterEvaluationReporter();

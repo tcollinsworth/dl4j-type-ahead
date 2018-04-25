@@ -2,6 +2,7 @@ package com.daisyworks.demo.model;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -137,12 +138,26 @@ public class Inferrer {
 			INDArrayIndex[] indices = new INDArrayIndex[] { NDArrayIndex.point(0), NDArrayIndex.all() };
 			INDArray distribution = output.get(indices);
 
-			int charIdx = sampleFromDistribution(distribution);
-			nextChar = charArray[charIdx];
+			List<CharProb> samples = getTopSamples(distribution, sb);
+			nextChar = samples.get(0).c;
+			// int charIdx = sampleFromDistribution(distribution);
+			// nextChar = charArray[charIdx];
 			sb.append(nextChar);
 		}
 
 		return sb.toString();
+	}
+
+	private List<CharProb> getTopSamples(INDArray distribution, StringBuilder sb) {
+		List<CharProb> probs = new ArrayList<>(distribution.length());
+		for (int i = 0; i < distribution.length(); i++) {
+			probs.add(new CharProb(charArray[i], distribution.getFloat(i)));
+		}
+		Collections.sort(probs, (a, b) -> Float.compare(b.prob, a.prob)); // reverse highest to lowest
+
+		System.out.println(probs);
+		// System.out.println(probs.get(0));
+		return probs;
 	}
 
 	public int sampleFromDistribution(INDArray distribution) {
@@ -156,5 +171,30 @@ public class Inferrer {
 		}
 		// invalid probability distributionm should sum to 1.0
 		throw new IllegalArgumentException("Distribution is invalid? d=" + d + ", sum=" + sum);
+	}
+
+	public static class CharProb {
+		public final Character c;
+		public final float prob;
+
+		public CharProb(Character c, Float prob) {
+			this.c = c;
+			this.prob = prob;
+		}
+
+		@Override
+		public int hashCode() {
+			return c.hashCode();
+		}
+
+		@Override
+		public boolean equals(Object other) {
+			return c.equals(other);
+		}
+
+		@Override
+		public String toString() {
+			return "CharProb [c=" + c + ", prob=" + prob + "]";
+		}
 	}
 }
