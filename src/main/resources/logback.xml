@@ -13,7 +13,7 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 	
-	<logger name="com.daisyworks.language.ExampleCharSeqAsDoubleEncodedVectorDataSetIterator" level="warn"
+	<logger name="com.collinsworth.language.ExampleCharSeqAsDoubleEncodedVectorDataSetIterator" level="warn"
 		additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>

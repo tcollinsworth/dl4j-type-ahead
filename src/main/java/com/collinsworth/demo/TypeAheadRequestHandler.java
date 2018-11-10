@@ -1,10 +1,10 @@
-package com.daisyworks.demo;
+package com.collinsworth.demo;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
-import com.daisyworks.demo.model.Inferrer.Output;
+import com.collinsworth.demo.model.Inferrer.Output;
 
 /**
  * @author troy

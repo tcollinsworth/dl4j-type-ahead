@@ -1,4 +1,4 @@
-package com.daisyworks.demo.model;
+package com.collinsworth.demo.model;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.optimize.api.IterationListener;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
-import com.daisyworks.demo.Service;
+import com.collinsworth.demo.Service;
 
 /**
  * @author troy

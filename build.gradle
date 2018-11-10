@@ -24,7 +24,7 @@ dependencies {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-group = "com.daisyworks"
+group = "com.collinsworth"
 version = '0.1.0'
 
 jar {
@@ -46,5 +46,5 @@ idea{
     }
 }
 
-mainClassName = "com.daisyworks.demo.Service"
+mainClassName = "com.collinsworth.demo.Service"
 

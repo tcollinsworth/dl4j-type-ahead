@@ -1,11 +1,11 @@
-package com.daisyworks.demo.model;
+package com.collinsworth.demo.model;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
-import com.daisyworks.demo.Service;
+import com.collinsworth.demo.Service;
 
 /**
  * @author troy

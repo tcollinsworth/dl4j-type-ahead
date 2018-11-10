@@ -1,4 +1,4 @@
-package com.daisyworks.demo;
+package com.collinsworth.demo;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
@@ -11,12 +11,12 @@ import java.security.NoSuchAlgorithmException;
 
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 
-import com.daisyworks.demo.examples.DataSwizzler;
-import com.daisyworks.demo.examples.ExampleCharSeqEncodedVectorDataSetIterator;
-import com.daisyworks.demo.model.Evaluator;
-import com.daisyworks.demo.model.Inferrer;
-import com.daisyworks.demo.model.RecurrentNeuralNet;
-import com.daisyworks.demo.model.Trainer;
+import com.collinsworth.demo.examples.DataSwizzler;
+import com.collinsworth.demo.examples.ExampleCharSeqEncodedVectorDataSetIterator;
+import com.collinsworth.demo.model.Evaluator;
+import com.collinsworth.demo.model.Inferrer;
+import com.collinsworth.demo.model.RecurrentNeuralNet;
+import com.collinsworth.demo.model.Trainer;
 
 /**
  * @author troy

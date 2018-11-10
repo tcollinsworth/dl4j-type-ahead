@@ -1,4 +1,4 @@
-package com.daisyworks.demo.examples;
+package com.collinsworth.demo.examples;
 
 import java.util.List;
 import java.util.Set;

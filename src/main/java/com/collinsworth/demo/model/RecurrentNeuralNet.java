@@ -1,4 +1,4 @@
-package com.daisyworks.demo.model;
+package com.collinsworth.demo.model;
 
 import java.io.File;
 import java.io.IOException;

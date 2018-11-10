@@ -1,4 +1,4 @@
-package com.daisyworks.demo.model;
+package com.collinsworth.demo.model;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.indexing.INDArrayIndex;
 import org.nd4j.linalg.indexing.NDArrayIndex;
 
-import com.daisyworks.demo.Service;
+import com.collinsworth.demo.Service;
 
 /**
  * @author troy
@@ -117,7 +117,8 @@ public class Inferrer {
 	public void randomlySample(int samples, int length) throws NoSuchAlgorithmException {
 		for (int i = 0; i < samples; i++) {
 			int seedCharIdx = Math.round(rnd.nextFloat() * (charArray.length - 1));
-			System.out.println(String.format("%d %c %s", i, charArray[seedCharIdx], getSample(charArray[seedCharIdx], length)));
+			System.out.println(String.format("%d %c %s", i, charArray[seedCharIdx],
+					getSample(charArray[seedCharIdx], length)));
 			rnn.net.rnnClearPreviousState();
 		}
 	}
@@ -155,7 +156,7 @@ public class Inferrer {
 		}
 		Collections.sort(probs, (a, b) -> Float.compare(b.prob, a.prob)); // reverse highest to lowest
 
-		System.out.println(probs);
+		// System.out.println(probs); // TODO prints individual char probabilities
 		// System.out.println(probs.get(0));
 		return probs;
 	}

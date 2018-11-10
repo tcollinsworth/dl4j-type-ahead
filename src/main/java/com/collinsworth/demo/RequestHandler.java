@@ -1,4 +1,4 @@
-package com.daisyworks.demo;
+package com.collinsworth.demo;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
