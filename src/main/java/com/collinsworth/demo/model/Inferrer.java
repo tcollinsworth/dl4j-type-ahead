@@ -33,7 +33,6 @@ public class Inferrer {
 	}
 
 	public List<String> infer(String seedString) {
-
 		// TODO strip punctuation
 		String groomedSeed = seedString.toLowerCase();
 
@@ -136,7 +135,7 @@ public class Inferrer {
 		Collections.sort(probs, (a, b) -> Float.compare(b.prob, a.prob)); // reverse highest to lowest
 
 		// *************** prints individual char probabilities
-		// System.out.println(probs);
+		System.out.println(probs);
 		// System.out.println(probs.get(0));
 		// *************** prints individual char probabilities
 		return probs;

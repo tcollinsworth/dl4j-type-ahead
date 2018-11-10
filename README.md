@@ -1,5 +1,14 @@
 # RNN type-ahead using dl4j
 
+## input
+
+Text is the input to get type-ahead suggestions
+
+curl -X POST http://localhost:8080/typeahead -d '{ "text": "how to" }'
+
+{"suggestions":["our differences to work the fastest way to innovation leadership and high performance how to build a"]}
+
+## Statistics
 
 43 inputs -L0-> 200 hidden -L1-> 200 hidden -L2-> 200 hidden -L3-> 43 outputs
 Number of parameters in layer 0: 195800
