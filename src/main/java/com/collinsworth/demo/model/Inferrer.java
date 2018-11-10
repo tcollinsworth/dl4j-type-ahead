@@ -32,106 +32,80 @@ public class Inferrer {
 		this.charArray = service.swizzler.getOutputCharsArray();
 	}
 
-	public Output infer(String rawExample) {
-		List<String> words = service.swizzler.getTransformedInput(rawExample);
+	public List<String> infer(String seedString) {
 
-		final StringBuilder sb = new StringBuilder();
-		String[] delimiter = { "" };
-		words.forEach((word) -> {
-			sb.append(delimiter[0]).append(word);
-			delimiter[0] = " ";
-		});
-
-		String example = sb.toString().trim().toLowerCase();
-
-		// 1-Hot vector
-
-		// encode/scale, remove untrained characters,
-		List<Integer> charsEncoded = new ArrayList<>();
-		example.chars().forEachOrdered((c) -> {
-			Integer charEncoding = charMap.get((char) c);
-			if (charEncoding != null) {
-				charsEncoded.add(charEncoding);
-			}
-		});
-
-		// vectorize inputs, create input mask
-		// input Dimensions [miniBatchSize,inputSize,inputTimeSeriesLength]
-		INDArray input = Nd4j.zeros(new int[] { 1, service.swizzler.getInputCharCnt(), charsEncoded.size() }, 'f');
-		for (int i = 0; i < charsEncoded.size(); i++) {
-			input.putScalar(new int[] { 0, charsEncoded.get(i), i }, 1.0f);
-		}
-
-		// System.out.println("infer inputs: " + inputs.toString());
+		// TODO strip punctuation
+		String groomedSeed = seedString.toLowerCase();
 
 		long start = System.nanoTime();
 
 		rnn.net.rnnClearPreviousState();
-		// Output dimensions [miniBatchSize,outputSize] or 1 x 7 languages
-		INDArray outputs = rnn.net.rnnTimeStep(input);
-		// System.out.println(outputs);
 
-		// System.out.println(outputs.length);
-		// System.out.println(Arrays.toString(outputs));
-		// System.out.println(nn.net.summary());
+		List<String> suggestions = new ArrayList<>();
+
+		int seedCharIdx = charMap.get(groomedSeed.charAt(0));
+
+		// TODO seed with multiple characters
+		suggestions.add(getSample(seedString, 100));
+
+		// System.out.println(charMap + " " + seedCharIdx + " " + charArray[seedCharIdx]);
+
 		long timeNs = System.nanoTime() - start;
 		// System.out.println(timeNs);
 		float timeMs = ((float) timeNs) / 1000000;
 
-		return getOutput(outputs, charsEncoded.size(), timeMs);
-	}
-
-	private Output getOutput(INDArray outputs, int inputTimeSeriesLength, float timeMs) {
-		// System.out.println(outputs.shapeInfoToString());
-		INDArrayIndex[] lastProbIndices = new INDArrayIndex[] { //
-		NDArrayIndex.all(), NDArrayIndex.all(), //
-				NDArrayIndex.point(inputTimeSeriesLength - 1) };
-		INDArray lastClassificationProbabilities = outputs.get(lastProbIndices);
-		int classificationIdx = -1;
-		double maxProbability = 0.0;
-		List<String> lastProbabilities = new ArrayList<>();
-		for (int i = 0; i < service.getOutputChars().length; i++) {
-			lastProbabilities.add(service.getOutputChars()[i] + ":" + lastClassificationProbabilities.getFloat(i));
-			if (lastClassificationProbabilities.getDouble(i) > maxProbability) {
-				maxProbability = lastClassificationProbabilities.getDouble(i);
-				classificationIdx = i;
-			}
-		}
-		return new Output(classificationIdx, lastProbabilities, timeMs, outputs.toString());
-	}
-
-	public static class Output {
-		public final int classificationIdx;
-		public final List<String> classificationProbabilities;
-		public final float timeMs;
-		public final String probMatrix;
-
-		public Output(int classificationIdx, List<String> classificationProbabilities, float timeMs, String probMatrix) {
-			this.classificationIdx = classificationIdx;
-			this.classificationProbabilities = classificationProbabilities;
-			this.timeMs = timeMs;
-			this.probMatrix = probMatrix;
-		}
+		return suggestions;
 	}
 
 	public void randomlySample(int samples, int length) throws NoSuchAlgorithmException {
 		for (int i = 0; i < samples; i++) {
 			int seedCharIdx = Math.round(rnd.nextFloat() * (charArray.length - 1));
 			System.out.println(String.format("%d %c %s", i, charArray[seedCharIdx],
-					getSample(charArray[seedCharIdx], length)));
+					getSample(charArray[seedCharIdx].toString(), length)));
 			rnn.net.rnnClearPreviousState();
 		}
 	}
 
 	// TODO can be vector of samples for parallelization and more efficiency
-	private String getSample(Character seedChar, int length) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(seedChar);
+	private String getSample(String seedString, int length) {
+		long start = System.nanoTime();
 
-		Character nextChar = seedChar;
-		for (int i = 1; i < length; i++) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(seedString);
+
+		// final for lambda
+		final Character[] nextChar = new Character[1];
+
+		// System.out.println(seedString + " " + seedString.length());
+		// TODO seed RNN
+		seedString.chars().forEach((c) -> {
 			INDArray inputFeature = Nd4j.create(new int[] { 1, charMap.size(), 1 }, 'f');
-			inputFeature.putScalar(new int[] { 1, charMap.get(nextChar), 1 }, 1);
+			// System.out.println(charMap);
+			// System.out.println(c + " " + charMap.get((char) c));
+
+				inputFeature.putScalar(new int[] { 1, charMap.get((char) c), 1 }, 1);
+
+				// sample
+				INDArray output = rnn.net.rnnTimeStep(inputFeature);
+
+				INDArrayIndex[] indices = new INDArrayIndex[] { NDArrayIndex.point(0), NDArrayIndex.all() };
+				INDArray distribution = output.get(indices);
+
+				// TODO no need to sort for production as this slows it down unnecessarily
+				List<CharProb> samples = getTopSamples(distribution, sb);
+				nextChar[0] = samples.get(0).c;
+			});
+
+		// at last seed character append next predicted char before additional inference sampling
+		// TODO randomly sample for variation in production, but need to validate and discard garbage (non-words)
+		// int charIdx = sampleFromDistribution(distribution);
+		// nextChar = charArray[charIdx];
+		sb.append(nextChar[0]);
+
+		// sample loop the RNN
+		for (int i = 1; i < length - seedString.length(); i++) {
+			INDArray inputFeature = Nd4j.create(new int[] { 1, charMap.size(), 1 }, 'f');
+			inputFeature.putScalar(new int[] { 1, charMap.get(nextChar[0]), 1 }, 1);
 
 			// sample
 			INDArray output = rnn.net.rnnTimeStep(inputFeature);
@@ -139,12 +113,17 @@ public class Inferrer {
 			INDArrayIndex[] indices = new INDArrayIndex[] { NDArrayIndex.point(0), NDArrayIndex.all() };
 			INDArray distribution = output.get(indices);
 
+			// TODO no need to sort for production as this slows it down unnecessarily
 			List<CharProb> samples = getTopSamples(distribution, sb);
-			nextChar = samples.get(0).c;
+			nextChar[0] = samples.get(0).c;
+			// TODO randomly sample for variation in production, but need to validate and discard garbage (non-words)
 			// int charIdx = sampleFromDistribution(distribution);
 			// nextChar = charArray[charIdx];
-			sb.append(nextChar);
+			sb.append(nextChar[0]);
 		}
+
+		long timeNs = System.nanoTime() - start;
+		float timeMs = ((float) timeNs) / 1000000;
 
 		return sb.toString();
 	}
@@ -156,8 +135,10 @@ public class Inferrer {
 		}
 		Collections.sort(probs, (a, b) -> Float.compare(b.prob, a.prob)); // reverse highest to lowest
 
-		// System.out.println(probs); // TODO prints individual char probabilities
+		// *************** prints individual char probabilities
+		// System.out.println(probs);
 		// System.out.println(probs.get(0));
+		// *************** prints individual char probabilities
 		return probs;
 	}
 
@@ -170,7 +151,7 @@ public class Inferrer {
 				return i;
 			}
 		}
-		// invalid probability distributionm should sum to 1.0
+		// invalid probability distribution should sum to 1.0
 		throw new IllegalArgumentException("Distribution is invalid? d=" + d + ", sum=" + sum);
 	}
 

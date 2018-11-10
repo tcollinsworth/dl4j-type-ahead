@@ -96,8 +96,10 @@ public class Service {
 		Vertx vertx = Vertx.vertx();
 		Router router = Router.router(vertx);
 		router.route().handler(BodyHandler.create());
-		router.route(HttpMethod.POST, "/typeahead").blockingHandler(routingContext -> new TypeAheadRequestHandler(routingContext, this));
-		router.route(HttpMethod.POST, "/model-admin").blockingHandler(routingContext -> new ModelAdminRequestHandler(routingContext, this));
+		router.route(HttpMethod.POST, "/typeahead").blockingHandler(
+				routingContext -> new TypeAheadRequestHandler(routingContext, this));
+		router.route(HttpMethod.POST, "/model-admin").blockingHandler(
+				routingContext -> new ModelAdminRequestHandler(routingContext, this));
 		router.route("/*").handler(StaticHandler.create().setCacheEntryTimeout(1));
 
 		vertx.createHttpServer().requestHandler(router::accept).listen(PORT, res -> {

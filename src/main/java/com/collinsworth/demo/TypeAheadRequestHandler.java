@@ -4,7 +4,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
-import com.collinsworth.demo.model.Inferrer.Output;
+import java.util.List;
 
 /**
  * @author troy
@@ -18,26 +18,19 @@ public class TypeAheadRequestHandler extends RequestHandler {
 
 	@Override
 	public void handle() {
-		JsonObject respObj = getLangInference(service, bodyJson);
+		JsonObject respObj = getSuggestions(service, bodyJson);
 		rc.response().end(respObj.encode());
 	}
 
 	// FIXME return n-type-ahead suggestions
-	private JsonObject getLangInference(Service service, JsonObject bodyJson) {
+	private JsonObject getSuggestions(Service service, JsonObject bodyJson) {
 		String rawExample = bodyJson.getString("text");
 
-		Output output = service.inferrer.infer(rawExample);
-
-		Character lang = service.getOutputChars()[output.classificationIdx];
+		List<String> suggestions = service.inferrer.infer(rawExample);
 
 		JsonObject respObj = new JsonObject();
-		respObj.put("lang", lang);
+		respObj.put("suggestions", new JsonArray(suggestions));
 
-		JsonArray classProbabilities = new JsonArray(output.classificationProbabilities);
-		respObj.put("langProbabilities", classProbabilities);
-		respObj.put("timeMs", output.timeMs);
-		respObj.put("probMatrix", output.probMatrix);
-		System.out.println(output.probMatrix);
 		System.out.println(respObj);
 
 		return respObj;
